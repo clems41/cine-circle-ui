@@ -1,0 +1,16 @@
+<h2>Connexion</h2>
+
+<div>
+    <label id="login">Login</label>
+    <input for="login" #login />
+</div>
+
+<div>
+    <label id="password">Mot de passe</label>
+    <input for="password" #password />
+</div>
+<!-- (click) passes input value to add() and then clears the input -->
+<button class="login-button" (click)="logUser(login.value, password.value); 
+login.value=''; password.value=''">
+  Connexion
+</button>

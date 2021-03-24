@@ -1,0 +1,26 @@
+<div *ngIf="movie">
+
+    <h2>{{movie.Title}}</h2>
+    <div><img src="{{movie.Poster}}" alt="poster-{{movie.ID}}"></div>
+    <div><span>Année : </span>{{movie.Year}}</div>
+    <div><span>Durée : </span>{{movie.Runtime}}</div>
+    <div><span>Réalisateur(s) : </span></div>
+    <li *ngFor="let director of movie.Directors">
+        <span>{{director}}</span>
+    </li>
+    <br/>
+    <div><span>Acteurs : </span></div>
+    <li *ngFor="let actor of movie.Actors">
+        <span>{{actor}}</span>
+    </li>
+    <br/>
+    <div>Synopsis : </div>
+    <div>{{movie.Plot}}</div>
+    <div></div>
+    <div><span>Avis des utilisateurs du cercle</span></div>
+    <li *ngFor="let rating of movie.UserRatings">
+        <div><span>Avis de {{rating.Username}}</span></div>
+        <div><span>Note</span>{{rating.Value}}</div>
+        <div><span>Commentaires</span>{{rating.Comment}}</div>
+    </li>
+</div>

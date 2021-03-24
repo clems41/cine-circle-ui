@@ -1,0 +1,25 @@
+<h2>Mes cercles</h2>
+<ul class="circles">
+    <li *ngFor="let circle of circles">
+        <a routerLink="/circle/{{circle.ID}}">
+            <span class="badge">{{circle.ID}}</span> {{circle.Name}}
+        </a>
+        <button class="delete" title="delete circle" (click)="delete(circle)">x</button>
+    </li>
+</ul>
+<div>
+    <div>
+        <label id="new-circle">Nom du cercle</label>
+        <input for="new-circle" #name />
+    </div>
+    <div>
+        <label id="new-circle">Description</label>
+        <input for="new-circle" #description />
+    </div>
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button class="add-button" (click)="add(name.value, description.value); 
+    name.value=''; description.value=''">
+      Créer un cercle
+    </button>
+</div>
