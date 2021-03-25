@@ -45,7 +45,8 @@ export class MovieService {
   }
 
   getMovie(id: string): Observable<Movie> {
-    return this.http.get<Movie>(this.moviesUrl + `/${id}`)
+    return this.http.get<Movie>(this.moviesUrl + `/${id}`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
         tap(_ => this.log(`fetched movie id ${id}`)),
         catchError(this.handleError<Movie>('getMovie', null))

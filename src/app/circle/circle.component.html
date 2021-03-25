@@ -8,7 +8,7 @@
 <ul class="circles">
     <li *ngFor="let circle of circles">
         <a routerLink="/circle/{{circle.ID}}">
-            <span class="badge">{{circle.ID}}</span> {{circle.Name}}
+            <span class="badge"><img src="../../assets/circle.png" alt="circle-{{circle.ID}}" style="width:15px;height:15px;"></span> {{circle.Name}}
         </a>
         <button class="delete" title="delete circle" (click)="delete(circle)">x</button>
     </li>

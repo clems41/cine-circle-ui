@@ -5,4 +5,5 @@ export interface Rating {
 	Value: number;
 	Comment: string;
 	Username: string;
+	UpdatedAt: Date;
 }

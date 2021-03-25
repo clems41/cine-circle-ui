@@ -6,6 +6,9 @@ import { CircleService } from '../circle.service';
 import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Movie } from '../movie';
+import { UserService } from '../user.service';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-circle-detail',
@@ -15,19 +18,37 @@ import { Movie } from '../movie';
 export class CircleDetailComponent implements OnInit {
   circle: Circle;
   user: User;
-  movies: Movie[];
+  movies: Movie[]; users$: Observable<User[]>;
+  private searchTerms = new Subject<string>();
+
+  // Push a search term into the observable stream.
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
+
 
   constructor(
     private route: ActivatedRoute,
     private circleService: CircleService,
     private location: Location,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.getCircle();
     this.user = this.loginService.loggedUser;
     this.getMovies()
+    this.users$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => this.userService.searchUsers(term)),
+    );
   }
 
   getMovies(): void {
@@ -51,4 +72,19 @@ export class CircleDetailComponent implements OnInit {
       .subscribe(circle => this.circle = circle);
   }
 
+  delete(user: User): void {
+    this.circleService.removeUserFromCircle(this.circle, user)
+      .subscribe(circle => {
+        this.circle = circle;
+        this.ngOnInit();
+      })
+  }
+
+  add(user: User): void {
+    this.circleService.addUserToCircle(this.circle, user)
+      .subscribe(circle => {
+        this.circle = circle;
+        this.ngOnInit();
+      })
+  }
 }

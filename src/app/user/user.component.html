@@ -1,8 +1,11 @@
+<nav>
+    <a routerLink="/circles" *ngIf="user">Cercles</a>
+</nav>
 <h2>Utilisateurs </h2>
 <ul class="users">
     <li *ngFor="let user of users">
         <a routerLink="/user/{{user.ID}}">
-            <span class="badge">{{user.ID}}</span> {{user.Username}}
+            <span class="badge"><img src="../../assets/user.png" alt="user-{{user.ID}}" style="width:15px;height:15px;"></span>{{user.Username}}
         </a>
         <button class="delete" title="delete user" (click)="delete(user)">x</button>
     </li>

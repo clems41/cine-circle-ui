@@ -19,16 +19,30 @@
     </div>
 
     <button (click)="save()">save</button>
-    <nav>
-        <a *ngFor="let user of circle.Users" routerLink="/user/{{user.ID}}">
-        {{user.Username}}
-        </a>
-    </nav>
+    <h4>Films : </h4>
     <nav>
         <a *ngFor="let movie of movies" routerLink="/movie/{{movie.ID}}">
-        {{movie.Title}}
+            <img src="{{movie.Poster}}" alt="poster-{{movie.ID}}" style="width:150px;height:222px;">
         </a>
     </nav>
+    <h4>Utilisateurs : </h4>
+    <nav>
+        <a *ngFor="let user of circle.Users">
+        {{user.Username}}
+        <button class="delete" title="delete user" (click)="delete(user)">x</button>
+        </a>
+    </nav>
+    <div id="search-component">
+        <label for="search-box">Recherche par nom d'utilisateur</label>
+        <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+        <ul class="search-result">
+            <a *ngFor="let user of users$ | async">
+                {{user.Username}}
+                <button class="add" title="add user" (click)="add(user)">+</button>
+                </a>
+        </ul>
+    </div>
 
 
 </div>

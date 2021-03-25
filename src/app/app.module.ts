@@ -8,7 +8,6 @@ import { UserComponent } from './user/user.component';
 import { FormsModule } from '@angular/forms';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { MessagesComponent } from './messages/messages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { LoginComponent } from './login/login.component';
@@ -21,7 +20,6 @@ import { CircleDetailComponent } from './circle-detail/circle-detail.component';
     UserComponent,
     UserDetailComponent,
     MessagesComponent,
-    DashboardComponent,
     UserSearchComponent,
     MovieDetailComponent,
     LoginComponent,

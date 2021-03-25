@@ -6,6 +6,7 @@ import { LoginService } from './login.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Movie } from './movie';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -77,8 +78,24 @@ export class CircleService {
   addCircle(circle: Circle): Observable<Circle> {
     return this.http.post<Circle>(this.circlesUrl, circle,
       { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap((newCircle: Circle) => this.log(`added circle w/ id=${newCircle.ID}`)),
+        tap((newCircle: Circle) => this.log(`added circle id=${newCircle.ID}`)),
         catchError(this.handleError<Circle>('addCircle'))
+      );
+  }
+
+  addUserToCircle(circle: Circle, user: User): Observable<Circle> {
+    return this.http.put<Circle>(`${this.circlesUrl}/${circle.ID}/${user.ID}`, null,
+      { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
+        tap((newCircle: Circle) => this.log(`adduserToCircle  id=${newCircle.ID} user ${user.Username}`)),
+        catchError(this.handleError<Circle>('adduserToCircle'))
+      );
+  }
+
+  removeUserFromCircle(circle: Circle, user: User): Observable<Circle> {
+    return this.http.delete<Circle>(`${this.circlesUrl}/${circle.ID}/${user.ID}`,
+      { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
+        tap((newCircle: Circle) => this.log(`removeUserFromCircle  id=${newCircle.ID} user ${user.Username}`)),
+        catchError(this.handleError<Circle>('removeUserFromCircle'))
       );
   }
 
