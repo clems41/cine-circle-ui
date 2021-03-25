@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         if (users.length >= 1) {
           users.forEach(function (user) {
             if (user.Username == username) {
-              that.loginService.loggedUsername = username;
+              that.loginService.loggedUser = user;
               that.router.navigate([`/user/${user.ID}`]);
             }
           });

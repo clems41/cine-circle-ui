@@ -1,26 +1,38 @@
-<div *ngIf="movie">
+<div *ngIf="user">
+    <nav>
+        <a routerLink="/user/{{user.ID}}">Mon compte</a>
+        <a routerLink="/circles">Cercles</a>
+    </nav>
+</div>
 
+<div *ngIf="movie">
     <h2>{{movie.Title}}</h2>
     <div><img src="{{movie.Poster}}" alt="poster-{{movie.ID}}"></div>
-    <div><span>Année : </span>{{movie.Year}}</div>
-    <div><span>Durée : </span>{{movie.Runtime}}</div>
-    <div><span>Réalisateur(s) : </span></div>
+    <h4>Année : </h4>{{movie.Year}}
+    <h4>Durée : </h4>{{movie.Runtime}}
+    <h4>Réalisateur(s) :</h4>
     <li *ngFor="let director of movie.Directors">
         <span>{{director}}</span>
     </li>
     <br/>
-    <div><span>Acteurs : </span></div>
+    <h4>Acteurs : </h4>
     <li *ngFor="let actor of movie.Actors">
         <span>{{actor}}</span>
     </li>
     <br/>
-    <div>Synopsis : </div>
+    <h4>Synopsis : </h4>
     <div>{{movie.Plot}}</div>
-    <div></div>
-    <div><span>Avis des utilisateurs du cercle</span></div>
-    <li *ngFor="let rating of movie.UserRatings">
-        <div><span>Avis de {{rating.Username}}</span></div>
-        <div><span>Note</span>{{rating.Value}}</div>
-        <div><span>Commentaires</span>{{rating.Comment}}</div>
-    </li>
+    <br/>
+    <br/>
+    <div *ngIf="circle">
+        <h4>Avis des utilisateurs du cercle</h4>
+        <li *ngFor="let rating of movie.UserRatings">
+            <div><span>Avis de {{rating.Username}}</span></div>
+            <div><span>Note : </span>{{rating.Value}}</div>
+            <div><span>Commentaires : </span>{{rating.Comment}}</div>
+            <br/>
+        </li>
+    </div>
+
+
 </div>

@@ -40,13 +40,6 @@ export class MovieService {
     };
   }
 
-  getHttpOptionsForAuthentication(username: string): HttpHeaders {
-    return new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'username': username,
-    })
-  }
-
   getMovie(id: string): Observable<Movie> {
     return this.http.get<Movie>(this.moviesUrl + `/${id}`)
       .pipe(
@@ -54,6 +47,7 @@ export class MovieService {
         catchError(this.handleError<Movie>('getMovie', null))
       );
   }
+  
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`UserService: ${message}`);

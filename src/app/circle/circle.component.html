@@ -1,3 +1,9 @@
+<div *ngIf="user">
+    <nav>
+        <a routerLink="/user/{{user.ID}}">Mon compte</a>
+    </nav>
+</div>
+
 <h2>Mes cercles</h2>
 <ul class="circles">
     <li *ngFor="let circle of circles">

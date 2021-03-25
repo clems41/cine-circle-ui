@@ -1,1 +1,34 @@
-<p>circle-detail works!</p>
+<div *ngIf="user">
+
+    <nav>
+        <a routerLink="/user/{{user.ID}}">Mon compte</a>
+        <a routerLink="/circles">Cercles</a>
+    </nav>
+</div>
+
+<div *ngIf="circle">
+
+    <h2>Cercle : {{circle.Name}}</h2>
+    <div>
+        <label for="circle-Name">Nom du cercle : </label>
+        <input id="circle-Name" [(ngModel)]="circle.Name" placeholder="Name">
+    </div>
+    <div>
+        <label for="circle-Description">Description : </label>
+        <input id="circle-Description" [(ngModel)]="circle.Description" placeholder="Description">
+    </div>
+
+    <button (click)="save()">save</button>
+    <nav>
+        <a *ngFor="let user of circle.Users" routerLink="/user/{{user.ID}}">
+        {{user.Username}}
+        </a>
+    </nav>
+    <nav>
+        <a *ngFor="let movie of movies" routerLink="/movie/{{movie.ID}}">
+        {{movie.Title}}
+        </a>
+    </nav>
+
+
+</div>

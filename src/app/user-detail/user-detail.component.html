@@ -1,5 +1,9 @@
 <div *ngIf="user">
 
+    <nav>
+        <a routerLink="/circles" *ngIf="user">Cercles</a>
+    </nav>
+
     <h2>Informations de l'utilisateur</h2>
     <div><span>id: </span>{{user.ID}}</div>
     <div>
@@ -15,6 +19,6 @@
         <input id="user-Email" [(ngModel)]="user.Email" placeholder="Email">
     </div>
 
-    <button (click)="save()">save</button>
+    <div><button (click)="save()">save</button></div>
 
 </div>

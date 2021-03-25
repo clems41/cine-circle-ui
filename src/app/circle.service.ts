@@ -5,11 +5,13 @@ import { MessageService } from './message.service';
 import { LoginService } from './login.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Movie } from './movie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CircleService {
+  circle: Circle;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -42,17 +44,9 @@ export class CircleService {
     };
   }
 
-  getHttpOptionsForAuthentication(): HttpHeaders {
-    this.log(`getHttpOptionsForAuthentication --> ${this.loginService.loggedUsername}`)
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'username': this.loginService.loggedUsername,
-    })
-  }
-
   getCircles(): Observable<Circle[]> {
     return this.http.get<Circle[]>(this.circlesUrl, 
-      { headers: this.getHttpOptionsForAuthentication() })
+      { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
         tap(_ => this.log('fetched circles')),
         catchError(this.handleError<Circle[]>('getCircles', []))
@@ -61,16 +55,18 @@ export class CircleService {
 
   getCircle(id: number): Observable<Circle> {
     return this.http.get<Circle>(this.circlesUrl + `/${id}`, 
-    { headers: this.getHttpOptionsForAuthentication() })
+    { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
-        tap(_ => this.log(`fetched circle id ${id}`)),
+        tap((circle: Circle) => { 
+          this.log(`fetched circle id ${id}`);
+          this.circle = circle}),
         catchError(this.handleError<Circle>('getCircle', null))
       );
   }
 
   updateCircle(circle: Circle): Observable<Circle> {
     return this.http.put<Circle>(`${this.circlesUrl}/${circle.ID}`, circle,
-      { headers: this.getHttpOptionsForAuthentication() })
+      { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
         tap((newCircle: Circle) => this.log(`updated circle id=${newCircle.ID}`)),
         catchError(this.handleError<any>('updateCircle'))
@@ -80,7 +76,7 @@ export class CircleService {
   /** POST: add a new hero to the server */
   addCircle(circle: Circle): Observable<Circle> {
     return this.http.post<Circle>(this.circlesUrl, circle,
-      { headers: this.getHttpOptionsForAuthentication() }).pipe(
+      { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
         tap((newCircle: Circle) => this.log(`added circle w/ id=${newCircle.ID}`)),
         catchError(this.handleError<Circle>('addCircle'))
       );
@@ -91,7 +87,7 @@ export class CircleService {
     const url = `${this.circlesUrl}/${circle.ID}`;
 
     return this.http.delete<Circle>(url,
-      { headers: this.getHttpOptionsForAuthentication() }).pipe(
+      { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
         tap(_ => this.log(`deleted circle id=${circle.ID}`)),
         catchError(this.handleError<Circle>('deleteCircle'))
       );
@@ -104,11 +100,33 @@ export class CircleService {
       return of([]);
     }
     return this.http.get<Circle[]>(`${this.circlesUrl}/?circlename=${circlenameTerm}`,
-    { headers: this.getHttpOptionsForAuthentication() }).pipe(
+    { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
       tap(x => x.length ?
         this.log(`found circles matching "${circlenameTerm}"`) :
         this.log(`no circles matching "${circlenameTerm}"`)),
       catchError(this.handleError<Circle[]>('searchCircles', []))
+    );
+  }
+
+  /* GET heroes whose name contains search term */
+  getMoviesFromCircle(circleId: number): Observable<Movie[]> {
+    const search = "sort=date:desc";
+    return this.http.get<Movie[]>(`${this.circlesUrl}/${circleId}/movies?${search}`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
+      tap(x => x.length ?
+        this.log(`found movies for circle "${circleId}"`) :
+        this.log(`no movies matching "${circleId}"`)),
+      catchError(this.handleError<Movie[]>('getMoviesFromCircle', []))
+    );
+  }
+
+  /* GET heroes whose name contains search term */
+  getMovieFromCircle(circleId: number, movieId: string): Observable<Movie> {
+    const search = "sort=date:desc";
+    return this.http.get<Movie>(`${this.circlesUrl}/${circleId}/movie/${movieId}`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
+      tap(_ => this.log(`get movie ${movieId} for circle id=${circleId}`)),
+      catchError(this.handleError<Movie>('getMovieFromCircle'))
     );
   }
 

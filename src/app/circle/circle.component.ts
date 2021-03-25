@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Circle } from '../circle';
 import { CircleService } from '../circle.service'
+import { LoginService } from '../login.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-circle',
@@ -10,11 +12,13 @@ import { CircleService } from '../circle.service'
 
 export class CircleComponent implements OnInit {
   circles: Circle[] = [];
+  user: User;
 
-  constructor(private circleService: CircleService) { }
+  constructor(private circleService: CircleService, private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.getCircles();
+    this.user = this.loginService.loggedUser;
   }
 
   getCircles(): void {
