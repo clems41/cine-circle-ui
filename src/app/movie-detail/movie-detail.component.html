@@ -9,7 +9,7 @@
     <h2>{{movie.Title}}</h2>
     <div><img src="{{movie.Poster}}" alt="poster-{{movie.ID}}"></div>
     <h4>Année : </h4>{{movie.Year}}
-    <h4>Durée : </h4>{{movie.Runtime}}
+    <h4>Durée : </h4>{{movie.Runtime}} minutes
     <h4>Réalisateur(s) :</h4>
     <li *ngFor="let director of movie.Directors">
         <span>{{director}}</span>
@@ -34,5 +34,17 @@
         </li>
     </div>
 
+    <div *ngIf="user">
+        <h4>Donner son avis (ou mettre à jour)</h4>
+        <div>
+            <label for="rating-value">Note : </label>
+            <input id="rating-value" [(ngModel)]="rating.Value" placeholder="Note" type="number" step="0.1">
+        </div>
+        <div>
+            <label for="rating-comment">Commentaire : </label>
+            <input id="rating-comment" [(ngModel)]="rating.Comment" placeholder="Commentaires">
+        </div>
 
+        <div><button (click)="save()">Enregistrer</button></div>
+    </div>
 </div>

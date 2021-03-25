@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Rating } from './rating';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,12 @@ export class MovieService {
   };
 
   private moviesUrl = '/api/v1/movies';
+  private ratingsUrl = '/api/v1/ratings';
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private loginService: LoginService) { }
 
   /**
  * Handle Http operation that failed.
@@ -46,6 +50,16 @@ export class MovieService {
         tap(_ => this.log(`fetched movie id ${id}`)),
         catchError(this.handleError<Movie>('getMovie', null))
       );
+  }
+
+  addRating(rating: Rating): Observable<Rating> {
+    return this.http.post<Rating>(this.ratingsUrl + `/${rating.MovieID}`, rating,
+    { headers: this.loginService.getHttpOptionsForAuthentication() })
+      .pipe(
+        tap(_ => this.log(`add rating to movie id ${rating.MovieID}`)),
+        catchError(this.handleError<Rating>('addRating', null))
+      );
+
   }
   
   /** Log a HeroService message with the MessageService */
