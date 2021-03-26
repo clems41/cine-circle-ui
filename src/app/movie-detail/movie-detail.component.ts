@@ -6,6 +6,7 @@ import { MovieService } from '../movie.service';
 import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Rating } from '../rating';
+import { WatchlistService } from '../watchlist.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -16,6 +17,7 @@ export class MovieDetailComponent implements OnInit {
   movie: Movie;
   user: User;
   rating: Rating;
+  alreadyAdded: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,12 +25,14 @@ export class MovieDetailComponent implements OnInit {
     private location: Location,
     private loginService: LoginService,
     private router: Router,
+    private watchlistService: WatchlistService
   ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.user = this.loginService.loggedUser;
     this.getMovie();
+    this.isInWatchlist();
     this.rating = { MovieID: id } as Rating
     if (this.user) {
       this.rating.UserID = this.user.ID
@@ -48,6 +52,30 @@ export class MovieDetailComponent implements OnInit {
         .subscribe(newRating => {
           that.ngOnInit();
         });
+    }
+  }
+
+  addToWatchlist(): void {
+    if (this.user && this.movie) {
+      this.watchlistService.addToWatchlist(this.movie.ID)
+        .subscribe(_ => this.isInWatchlist());
+    }
+  }
+
+  isInWatchlist(): void {
+    const movieId = this.route.snapshot.paramMap.get('id');
+    if (this.user) {
+      this.watchlistService.isInWatchlist(movieId)
+        .subscribe(res => {
+          this.alreadyAdded = res == "true";
+        });
+    }
+  }
+
+  removeFromWatchlist(): void {
+    if (this.user && this.movie) {
+      this.watchlistService.deleteFromWatchlist(this.movie.ID)
+        .subscribe(_ =>this.isInWatchlist());
     }
   }
 }

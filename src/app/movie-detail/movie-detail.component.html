@@ -30,14 +30,22 @@
     <br/>
     <br/>
     <div *ngIf="user">
-        <h4>Avis des utilisateurs</h4>
-        <li *ngFor="let rating of movie.UserRatings">
-            <div><span>Avis de {{rating.Username}}</span></div>
-            <div><span>Note : </span>{{rating.Value}}</div>
-            <div><span>Commentaires : </span>{{rating.Comment}}</div>
-            <div><span>Date : </span>{{rating.UpdatedAt}}</div>
-            <br/>
-        </li>
+        <div *ngIf="movie.UserRatings?.length > 0">
+            <h4>Avis des utilisateurs</h4>
+            <li *ngFor="let userRating of movie.UserRatings">
+                <div><span>Avis de {{userRating.Username}}</span></div>
+                <div><span>Note : </span>{{userRating.Value}}</div>
+                <div><span>Commentaires : </span>{{userRating.Comment}}</div>
+                <div><span>Date : </span>{{userRating.UpdatedAt}}</div>
+                <br/>
+            </li>
+        </div>
+        <div *ngIf="alreadyAdded">
+            <div>Retirer de ma liste<button (click)="removeFromWatchlist()"><img src="../../assets/check.png" alt="check" style="width:30px;height:30px;"></button></div>
+        </div>
+        <div *ngIf="!alreadyAdded">
+            <div>Ajouter à ma liste<button (click)="addToWatchlist()"><img src="../../assets/add.png" alt="add" style="width:30px;height:30px;"></button></div>
+        </div>
         <h4>Donner son avis (ou mettre à jour)</h4>
         <div>
             <label for="rating-value">Note : </label>
@@ -50,10 +58,10 @@
 
         <div><button (click)="save()">Enregistrer</button></div>
     </div>
-    <div *ngIf="movie.PressRatings.length > 0">
+    <div *ngIf="movie.PressRatings?.length > 0">
         <h4>Avis de la presse</h4>
-        <li *ngFor="let rating of movie.PressRatings">
-            <div><span>{{rating.Source}} : {{rating.Value}}</span></div>
+        <li *ngFor="let pessRating of movie.PressRatings">
+            <div><span>{{pessRating.Source}} : {{pessRating.Value}}</span></div>
             <br/>
         </li>
     </div>

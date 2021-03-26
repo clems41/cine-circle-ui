@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { CircleComponent } from './circle/circle.component';
 import { CircleDetailComponent } from './circle-detail/circle-detail.component';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'circle/:id', component: CircleDetailComponent },
   { path: 'user/:id', component: UserDetailComponent },
   { path: 'movie/:id', component: MovieDetailComponent },
-  { path: 'movies', component: MovieSearchComponent }
+  { path: 'movies', component: MovieSearchComponent },
+  { path: 'watchlist', component: WatchlistComponent }
 ];
 
 @NgModule({

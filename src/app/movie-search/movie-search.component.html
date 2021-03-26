@@ -1,5 +1,5 @@
 <div *ngIf="user">
-    <h2>Mes films</h2>
+    <h2>Les films que j'ai noté</h2>
     <nav>
         <a *ngFor="let movie of userMovies" routerLink="/movie/{{movie.ID}}">
             <img *ngIf="movie.Poster" [src]="movie.Poster" alt="poster-{{movie.ID}}" style="width:150px;height:222px;">
@@ -21,7 +21,7 @@
     <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
     <ul class="search-result">
-        <li *ngFor="let movie of (movies$ | async)?.Search">
+        <li *ngFor="let movie of (movies$ | async)?.Search ">
             <a routerLink="/movie/{{movie.ID}}">
                 <img src="{{movie.Poster}}" alt="poster-{{movie.ID}}" style="width:100px;height:150px;">{{movie.Title}}
             </a>

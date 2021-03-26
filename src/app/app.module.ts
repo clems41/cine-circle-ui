@@ -14,7 +14,8 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { LoginComponent } from './login/login.component';
 import { CircleComponent } from './circle/circle.component';
 import { CircleDetailComponent } from './circle-detail/circle-detail.component';
-import { MovieSearchComponent } from './movie-search/movie-search.component'; // <-- NgModel lives here
+import { MovieSearchComponent } from './movie-search/movie-search.component';
+import { WatchlistComponent } from './watchlist/watchlist.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MovieSearchComponent } from './movie-search/movie-search.component'; //
     CircleComponent,
     CircleDetailComponent,
     MovieSearchComponent,
+    WatchlistComponent,
   ],
   imports: [
     BrowserModule,
