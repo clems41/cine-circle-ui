@@ -5,6 +5,7 @@ import { MessageService } from './message.service';
 import { LoginService } from './login.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Movie } from './movie';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,15 @@ export class UserService {
       .pipe(
         tap(_ => this.log(`fetched user id ${id}`)),
         catchError(this.handleError<User>('getUser', null))
+      );
+  }
+
+  getMoviesForUser(id: number): Observable<Movie[]> {
+    return this.http.get<Movie[]>(this.usersUrl + `/${id}/movies`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() })
+      .pipe(
+        tap(_ => this.log(`fetched movies for user id ${id}`)),
+        catchError(this.handleError<Movie[]>('getMoviesForUser'))
       );
   }
 

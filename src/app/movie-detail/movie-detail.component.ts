@@ -5,8 +5,6 @@ import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
 import { User } from '../user';
 import { LoginService } from '../login.service';
-import { Circle } from '../circle';
-import { CircleService } from '../circle.service';
 import { Rating } from '../rating';
 
 @Component({
@@ -17,7 +15,6 @@ import { Rating } from '../rating';
 export class MovieDetailComponent implements OnInit {
   movie: Movie;
   user: User;
-  circle: Circle;
   rating: Rating;
 
   constructor(
@@ -25,21 +22,17 @@ export class MovieDetailComponent implements OnInit {
     private movieService: MovieService,
     private location: Location,
     private loginService: LoginService,
-    private circleService: CircleService,
     private router: Router,
   ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.user = this.loginService.loggedUser;
-    this.circle = this.circleService.circle;
-    console.log(this.circle)
-    if (this.circle) {
-      this.getMovieForCircle()
-    } else {
-      this.getMovie();
+    this.getMovie();
+    this.rating = { MovieID: id } as Rating
+    if (this.user) {
+      this.rating.UserID = this.user.ID
     }
-    this.rating = {MovieID: id, UserID: this.user.ID} as Rating
   }
 
   getMovie(): void {
@@ -48,17 +41,13 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(movie => this.movie = movie);
   }
 
-  getMovieForCircle(): void {
-    const movieId = this.route.snapshot.paramMap.get('id');
-    this.circleService.getMovieFromCircle(this.circle.ID, movieId)
-      .subscribe(movie => this.movie = movie);
-  }
-
   save(): void {
     let that = this;
-    this.movieService.addRating(this.rating)
-      .subscribe(newRating => {
-        that.ngOnInit();
-      });
+    if (this.user) {
+      this.movieService.addRating(this.rating)
+        .subscribe(newRating => {
+          that.ngOnInit();
+        });
+    }
   }
 }

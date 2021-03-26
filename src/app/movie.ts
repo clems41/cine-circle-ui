@@ -27,3 +27,17 @@ export interface Movie {
 	Website:    string;
 	TotalSeasons: number;
   }
+
+  export interface MovieShort {
+	  ID:       string;
+	  Title:    string;
+	  Year:     string;
+	  Poster:   string;
+	  Type:     string;
+	}
+
+
+export interface MovieSearch {
+	TotalResults: number;
+	Search:    MovieShort[];
+  }

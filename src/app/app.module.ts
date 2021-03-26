@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +13,8 @@ import { UserSearchComponent } from './user-search/user-search.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { LoginComponent } from './login/login.component';
 import { CircleComponent } from './circle/circle.component';
-import { CircleDetailComponent } from './circle-detail/circle-detail.component'; // <-- NgModel lives here
+import { CircleDetailComponent } from './circle-detail/circle-detail.component';
+import { MovieSearchComponent } from './movie-search/movie-search.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { CircleDetailComponent } from './circle-detail/circle-detail.component';
     LoginComponent,
     CircleComponent,
     CircleDetailComponent,
+    MovieSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { CircleDetailComponent } from './circle-detail/circle-detail.component';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

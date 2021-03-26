@@ -10,22 +10,27 @@
     <div><img src="{{movie.Poster}}" alt="poster-{{movie.ID}}"></div>
     <h4>Année : </h4>{{movie.Year}}
     <h4>Durée : </h4>{{movie.Runtime}} minutes
-    <h4>Réalisateur(s) :</h4>
-    <li *ngFor="let director of movie.Directors">
-        <span>{{director}}</span>
-    </li>
     <br/>
-    <h4>Acteurs : </h4>
-    <li *ngFor="let actor of movie.Actors">
-        <span>{{actor}}</span>
-    </li>
-    <br/>
+    <div *ngIf="movie.Actors.length > 0">
+        <h4>Réalisateur(s) :</h4>
+        <li *ngFor="let director of movie.Directors">
+            <span>{{director}}</span>
+        </li>
+        <br/>
+    </div>
+    <div *ngIf="movie.Actors.length > 0">
+        <h4>Acteurs : </h4>
+        <li *ngFor="let actor of movie.Actors">
+            <span>{{actor}}</span>
+        </li>
+        <br/>
+    </div>
     <h4>Synopsis : </h4>
     <div>{{movie.Plot}}</div>
     <br/>
     <br/>
-    <div *ngIf="circle">
-        <h4>Avis des utilisateurs du cercle</h4>
+    <div *ngIf="user">
+        <h4>Avis des utilisateurs</h4>
         <li *ngFor="let rating of movie.UserRatings">
             <div><span>Avis de {{rating.Username}}</span></div>
             <div><span>Note : </span>{{rating.Value}}</div>
@@ -33,9 +38,6 @@
             <div><span>Date : </span>{{rating.UpdatedAt}}</div>
             <br/>
         </li>
-    </div>
-
-    <div *ngIf="user">
         <h4>Donner son avis (ou mettre à jour)</h4>
         <div>
             <label for="rating-value">Note : </label>
@@ -47,5 +49,12 @@
         </div>
 
         <div><button (click)="save()">Enregistrer</button></div>
+    </div>
+    <div *ngIf="movie.PressRatings.length > 0">
+        <h4>Avis de la presse</h4>
+        <li *ngFor="let rating of movie.PressRatings">
+            <div><span>{{rating.Source}} : {{rating.Value}}</span></div>
+            <br/>
+        </li>
     </div>
 </div>

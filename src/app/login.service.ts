@@ -12,11 +12,18 @@ export class LoginService {
   constructor(private messageService: MessageService) { }
 
   getHttpOptionsForAuthentication(): HttpHeaders {
-    this.log(`getHttpOptionsForAuthentication username = ${this.loggedUser.Username}`)
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'username': this.loggedUser.Username,
-    })
+    if (this.loggedUser) {
+      this.log(`getHttpOptionsForAuthentication username = ${this.loggedUser.Username}`)
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        'username': this.loggedUser.Username,
+      })
+    } else {
+      this.log(`getHttpOptionsForAuthentication user not logged yet`)
+      return new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
   }
 
     /** Log a HeroService message with the MessageService */
