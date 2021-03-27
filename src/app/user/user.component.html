@@ -4,31 +4,10 @@
 <h2>Utilisateurs </h2>
 <ul class="users">
     <li *ngFor="let user of users">
-        <a routerLink="/user/{{user.ID}}">
-            <span class="badge"><img src="../../assets/user.png" alt="user-{{user.ID}}" style="width:15px;height:15px;"></span>{{user.Username}}
+        <a routerLink="/user/{{user.id}}">
+            <span class="badge"><img src="../../assets/user.png" alt="user-{{user.id}}" style="width:15px;height:15px;"></span>{{user.username}}
         </a>
         <button class="delete" title="delete user" (click)="delete(user)">x</button>
     </li>
 </ul>
 <app-user-search></app-user-search>
-<div>
-    <h2>Créer un compte</h2>
-    <div>
-        <label id="new-user">Nom d'utilisateur</label>
-        <input for="new-user" #userName />
-    </div>
-    <div>
-        <label id="new-user">Prénom Nom</label>
-        <input for="new-user" #fullName />
-    </div>
-    <div>
-        <label id="new-user">Email</label>
-        <input for="new-user" #email />
-    </div>
-
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button class="add-button" (click)="add(userName.value, fullName.value, email.value); 
-    userName.value=''; fullName.value=''; email.value=''">
-      Créer un utilisateur
-    </button>
-</div>

@@ -30,12 +30,12 @@ export class MovieDetailComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.user = this.loginService.loggedUser;
+    this.user = this.loginService.getLoggedUser();
     this.getMovie();
     this.isInWatchlist();
-    this.rating = { MovieID: id } as Rating
+    this.rating = { movieId: id } as Rating
     if (this.user) {
-      this.rating.UserID = this.user.ID
+      this.rating.userId = this.user.id
     }
   }
 
@@ -57,7 +57,7 @@ export class MovieDetailComponent implements OnInit {
 
   addToWatchlist(): void {
     if (this.user && this.movie) {
-      this.watchlistService.addToWatchlist(this.movie.ID)
+      this.watchlistService.addToWatchlist(this.movie.id)
         .subscribe(_ => this.isInWatchlist());
     }
   }
@@ -74,7 +74,7 @@ export class MovieDetailComponent implements OnInit {
 
   removeFromWatchlist(): void {
     if (this.user && this.movie) {
-      this.watchlistService.deleteFromWatchlist(this.movie.ID)
+      this.watchlistService.deleteFromWatchlist(this.movie.id)
         .subscribe(_ =>this.isInWatchlist());
     }
   }

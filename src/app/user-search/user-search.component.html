@@ -4,8 +4,8 @@
 
     <ul class="search-result">
         <li *ngFor="let user of users$ | async">
-            <a routerLink="/user/{{user.ID}}">
-          {{user.Username}}
+            <a routerLink="/user/{{user.id}}">
+          {{user.username}}
         </a>
         </li>
     </ul>

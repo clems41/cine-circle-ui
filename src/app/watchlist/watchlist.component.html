@@ -1,12 +1,12 @@
 <div *ngIf="movies">
-    <div *ngIf="!movies.Search">
+    <div *ngIf="!movies.search">
         <h2>Aucun film dans votre liste</h2>
     </div>
-    <div *ngIf="movies?.Search?.length > 0">
+    <div *ngIf="movies?.search?.length > 0">
         <h2>Ma liste de films à regarder</h2>
         <nav>
-            <a *ngFor="let movie of movies.Search" routerLink="/movie/{{movie.ID}}">
-                <img *ngIf="movie.Poster" [src]="movie.Poster" alt="poster-{{movie.ID}}" style="width:150px;height:222px;">
+            <a *ngFor="let movie of movies.search" routerLink="/movie/{{movie.id}}">
+                <img *ngIf="movie.poster" [src]="movie.poster" alt="poster-{{movie.id}}" style="width:150px;height:222px;">
             </a>
         </nav>
     </div>

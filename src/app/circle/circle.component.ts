@@ -18,7 +18,7 @@ export class CircleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCircles();
-    this.user = this.loginService.loggedUser;
+    this.user = this.loginService.getLoggedUser();
   }
 
   getCircles(): void {
@@ -30,7 +30,7 @@ export class CircleComponent implements OnInit {
     name = name.trim();
     description = description.trim();
     if (!name || !description) { return; }
-    this.circleService.addCircle({Name: name, Description: description} as Circle)
+    this.circleService.addCircle({name: name, description: description} as Circle)
       .subscribe(circle => {
         if (circle) {
           this.circles.push(circle);

@@ -8,11 +8,12 @@ import { CircleComponent } from './circle/circle.component';
 import { CircleDetailComponent } from './circle-detail/circle-detail.component';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  //{ path: 'dashboard', component: DashboardComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/signin', pathMatch: 'full' },
+  { path: 'signin', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'users', component: UserComponent },
   { path: 'circles', component: CircleComponent },
   { path: 'circle/:id', component: CircleDetailComponent },

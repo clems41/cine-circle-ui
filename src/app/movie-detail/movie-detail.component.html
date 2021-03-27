@@ -1,42 +1,42 @@
 <div *ngIf="user">
     <nav>
-        <a routerLink="/user/{{user.ID}}">Mon compte</a>
+        <a routerLink="/user/{{user.id}}">Mon compte</a>
         <a routerLink="/circles">Cercles</a>
     </nav>
 </div>
 
 <div *ngIf="movie">
-    <h2>{{movie.Title}}</h2>
-    <div><img src="{{movie.Poster}}" alt="poster-{{movie.ID}}"></div>
-    <h4>Année : </h4>{{movie.Year}}
-    <h4>Durée : </h4>{{movie.Runtime}} minutes
+    <h2>{{movie.title}}</h2>
+    <div><img src="{{movie.poster}}" alt="poster-{{movie.id}}"></div>
+    <h4>Année : </h4>{{movie.year}}
+    <h4>Durée : </h4>{{movie.runtime}} minutes
     <br/>
-    <div *ngIf="movie.Actors.length > 0">
+    <div *ngIf="movie.directors.length > 0">
         <h4>Réalisateur(s) :</h4>
-        <li *ngFor="let director of movie.Directors">
+        <li *ngFor="let director of movie.directors">
             <span>{{director}}</span>
         </li>
         <br/>
     </div>
-    <div *ngIf="movie.Actors.length > 0">
+    <div *ngIf="movie.actors.length > 0">
         <h4>Acteurs : </h4>
-        <li *ngFor="let actor of movie.Actors">
+        <li *ngFor="let actor of movie.actors">
             <span>{{actor}}</span>
         </li>
         <br/>
     </div>
     <h4>Synopsis : </h4>
-    <div>{{movie.Plot}}</div>
+    <div>{{movie.plot}}</div>
     <br/>
     <br/>
     <div *ngIf="user">
-        <div *ngIf="movie.UserRatings?.length > 0">
+        <div *ngIf="movie.userRatings?.length > 0">
             <h4>Avis des utilisateurs</h4>
-            <li *ngFor="let userRating of movie.UserRatings">
-                <div><span>Avis de {{userRating.Username}}</span></div>
-                <div><span>Note : </span>{{userRating.Value}}</div>
-                <div><span>Commentaires : </span>{{userRating.Comment}}</div>
-                <div><span>Date : </span>{{userRating.UpdatedAt}}</div>
+            <li *ngFor="let userRating of movie.userRatings">
+                <div><span>Avis de {{userRating.username}}</span></div>
+                <div><span>Note : </span>{{userRating.value}}</div>
+                <div><span>Commentaires : </span>{{userRating.comment}}</div>
+                <div><span>Date : </span>{{userRating.updatedAt}}</div>
                 <br/>
             </li>
         </div>
@@ -49,19 +49,19 @@
         <h4>Donner son avis (ou mettre à jour)</h4>
         <div>
             <label for="rating-value">Note : </label>
-            <input id="rating-value" [(ngModel)]="rating.Value" placeholder="Note" type="number" step="0.1">
+            <input id="rating-value" [(ngModel)]="rating.value" placeholder="Note" type="number" step="0.1">
         </div>
         <div>
             <label for="rating-comment">Commentaire : </label>
-            <input id="rating-comment" [(ngModel)]="rating.Comment" placeholder="Commentaires">
+            <input id="rating-comment" [(ngModel)]="rating.comment" placeholder="Commentaires">
         </div>
 
         <div><button (click)="save()">Enregistrer</button></div>
     </div>
-    <div *ngIf="movie.PressRatings?.length > 0">
+    <div *ngIf="movie.pressRatings?.length > 0">
         <h4>Avis de la presse</h4>
-        <li *ngFor="let pessRating of movie.PressRatings">
-            <div><span>{{pessRating.Source}} : {{pessRating.Value}}</span></div>
+        <li *ngFor="let pessRating of movie.pressRatings">
+            <div><span>{{pessRating.source}} : {{pessRating.value}}</span></div>
             <br/>
         </li>
     </div>

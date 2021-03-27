@@ -19,23 +19,12 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.user = this.loginService.loggedUser;
+    this.user = this.loginService.getLoggedUser();
   }
 
   getUsers(): void {
     this.userService.getUsers()
     .subscribe(users => this.users = users.slice(0, MaxNumberOfUsersToDisplay));
-  }
-
-  add(username: string, fullname: string, email: string): void {
-    username = username.trim();
-    if (!username) { return; }
-    this.userService.addUser({Username: username, FullName: fullname, Email: email } as User)
-      .subscribe(user => {
-        if (user) {
-          this.users.push(user);
-        }
-      });
   }
 
   delete(user: User): void {

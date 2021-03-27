@@ -1,0 +1,25 @@
+<div>
+    <h2>Créer un compte</h2>
+    <div>
+        <label id="new-user">Nom d'utilisateur</label>
+        <input for="new-user" #userName />
+    </div>
+    <div>
+        <label id="new-user">Prénom Nom</label>
+        <input for="new-user" #fullName />
+    </div>
+    <div>
+        <label id="new-user">Email</label>
+        <input for="new-user" #email />
+    </div>
+    <div>
+        <label id="new-user">Mot de passe</label>
+        <input for="new-user" #password type="password" />
+    </div>
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button class="add-button" (click)="signup(userName.value, fullName.value, email.value, password.value); 
+    userName.value=''; fullName.value=''; email.value=''; password.value=''">
+      Créer un utilisateur
+    </button>
+</div>

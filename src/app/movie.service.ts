@@ -54,10 +54,10 @@ export class MovieService {
   }
 
   addRating(rating: Rating): Observable<Rating> {
-    return this.http.post<Rating>(this.ratingsUrl + `/${rating.MovieID}`, rating,
+    return this.http.post<Rating>(this.ratingsUrl + `/${rating.movieId}`, rating,
       { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
-        tap(_ => this.log(`add rating to movie id ${rating.MovieID}`)),
+        tap(_ => this.log(`add rating to movie id ${rating.movieId}`)),
         catchError(this.handleError<Rating>('addRating'))
       );
 
@@ -72,7 +72,7 @@ export class MovieService {
     return this.http.get<MovieSearch>(`${this.moviesUrl}/?title=${titleTerm}&type=${mediaType}`,
       { headers: this.loginService.getHttpOptionsForAuthentication()})
       .pipe(
-        tap(x => x.Search.length ?
+        tap(x => x.search.length ?
           this.log(`found media matching "${titleTerm}"`) :
           this.log(`no media matching "${titleTerm}"`)),
         catchError(this.handleError<MovieSearch>('searchMovies'))

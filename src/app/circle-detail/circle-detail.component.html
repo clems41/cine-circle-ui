@@ -1,35 +1,35 @@
 <div *ngIf="user">
 
     <nav>
-        <a routerLink="/user/{{user.ID}}">Mon compte</a>
+        <a routerLink="/user/{{user.id}}">Mon compte</a>
         <a routerLink="/circles">Cercles</a>
     </nav>
 </div>
 
 <div *ngIf="circle">
 
-    <h2>Cercle : {{circle.Name}}</h2>
+    <h2>Cercle : {{circle.name}}</h2>
     <div>
         <label for="circle-Name">Nom du cercle : </label>
-        <input id="circle-Name" [(ngModel)]="circle.Name" placeholder="Name">
+        <input id="circle-Name" [(ngModel)]="circle.name" placeholder="Name">
     </div>
     <div>
         <label for="circle-Description">Description : </label>
-        <input id="circle-Description" [(ngModel)]="circle.Description" placeholder="Description">
+        <input id="circle-Description" [(ngModel)]="circle.description" placeholder="Description">
     </div>
 
     <button (click)="save()">save</button>
     <h4>Films : </h4>
     <nav>
-        <a *ngFor="let movie of movies" routerLink="/movie/{{movie.ID}}">
-            <img src="{{movie.Poster}}" alt="poster-{{movie.ID}}" style="width:150px;height:222px;">
+        <a *ngFor="let movie of movies" routerLink="/movie/{{movie.id}}">
+            <img src="{{movie.poster}}" alt="poster-{{movie.id}}" style="width:150px;height:222px;">
         </a>
     </nav>
-    <div *ngIf="circle.Users.length > 0">
+    <div *ngIf="circle.users.length > 0">
         <h4>Utilisateurs : </h4>
         <nav>
-            <a *ngFor="let user of circle.Users">
-        {{user.Username}}
+            <a *ngFor="let user of circle.users">
+        {{user.username}}
         <button class="delete" title="delete user" (click)="delete(user)">x</button>
         </a>
         </nav>
@@ -40,7 +40,7 @@
 
         <ul class="search-result">
             <a *ngFor="let user of users$ | async">
-                {{user.Username}}
+                {{user.username}}
                 <button class="add" title="add user" (click)="add(user)">+</button>
                 </a>
         </ul>

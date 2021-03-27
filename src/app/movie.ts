@@ -1,43 +1,43 @@
 import { Rating } from './rating';
 
 export interface Movie {
-	ID:       string;
-	Title:    string;
-	Year:     string;
-	Released: Date;
-	Runtime:  number;
-	Genres:    string[];
-	Directors: string[];
-	Writers:   string[];
-	Actors:   string[];
-	Plot:     string;
-	Languages: string[];
-	Countries:  string[];
-	Awards:   string;
-	Poster:   string;
-	UserRatings:  Rating[];
-	PressRatings:  Rating[];
-	Metascore:  string;
-	Imdbvotes:  string;
-	Type:       string;
-	Dvd:        Date;
-	BoxOffice:  number;
-	BoxOfficeCurrency:  string;
-	Productions: string[];
-	Website:    string;
-	TotalSeasons: number;
+	id:       string;
+	title:    string;
+	year:     string;
+	released: Date;
+	runtime:  number;
+	genres:    string[];
+	directors: string[];
+	writers:   string[];
+	actors:   string[];
+	plot:     string;
+	languages: string[];
+	countries:  string[];
+	awards:   string;
+	poster:   string;
+	userRatings:  Rating[];
+	pressRatings:  Rating[];
+	metascore:  string;
+	imdbvotes:  string;
+	type:       string;
+	dvd:        Date;
+	boxOffice:  number;
+	boxOfficeCurrency:  string;
+	productions: string[];
+	website:    string;
+	totalSeasons: number;
   }
 
   export interface MovieShort {
-	  ID:       string;
-	  Title:    string;
-	  Year:     string;
-	  Poster:   string;
-	  Type:     string;
+	  id:       string;
+	  title:    string;
+	  year:     string;
+	  poster:   string;
+	  type:     string;
 	}
 
 
 export interface MovieSearch {
-	TotalResults: number;
-	Search:    MovieShort[];
+	totalResults: number;
+	search:    MovieShort[];
   }

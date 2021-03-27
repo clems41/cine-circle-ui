@@ -37,7 +37,7 @@ export class MovieSearchComponent implements OnInit {
 
   getMovies(): void {
     if (this.user) {
-      this.userService.getMoviesForUser(this.user.ID)
+      this.userService.getMoviesForUser(this.user.id)
         .subscribe(movies => {
           this.userMovies = movies;
         });
@@ -46,7 +46,7 @@ export class MovieSearchComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this);
-    this.user = this.loginService.loggedUser;
+    this.user = this.loginService.getLoggedUser();
     this.getMovies();
     this.movies$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term

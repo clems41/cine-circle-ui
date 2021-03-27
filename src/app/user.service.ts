@@ -44,15 +44,26 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl)
+    return this.http.get<User[]>(this.usersUrl,
+      { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
         tap(_ => this.log('fetched users')),
         catchError(this.handleError<User[]>('getUsers', []))
       );
   }
 
+  getActualUser(): Observable<User> {
+    return this.http.get<User>(this.usersUrl + `/me`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() })
+      .pipe(
+        tap(_ => this.log(`fetched user me`)),
+        catchError(this.handleError<User>('getActualUser', null))
+      );
+  }
+
   getUser(id: number): Observable<User> {
-    return this.http.get<User>(this.usersUrl + `/${id}`)
+    return this.http.get<User>(this.usersUrl + `/${id}`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
         tap(_ => this.log(`fetched user id ${id}`)),
         catchError(this.handleError<User>('getUser', null))
@@ -77,30 +88,21 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    return this.http.put<User>(`${this.usersUrl}/${user.ID}`, user,
+    return this.http.put<User>(`${this.usersUrl}/${user.id}`, user,
       { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
-        tap((newUser: User) => this.log(`updated user id=${newUser.ID}`)),
+        tap((newUser: User) => this.log(`updated user id=${newUser.id}`)),
         catchError(this.handleError<any>('updateUser'))
-      );
-  }
-
-  /** POST: add a new hero to the server */
-  addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user,
-      { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap((newUser: User) => this.log(`added user w/ id=${newUser.ID}`)),
-        catchError(this.handleError<User>('addUser'))
       );
   }
 
   /** DELETE: delete the hero from the server */
   deleteUser(user: User): Observable<User> {
-    const url = `${this.usersUrl}/${user.ID}`;
+    const url = `${this.usersUrl}/${user.id}`;
 
     return this.http.delete<User>(url,
       { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap(_ => this.log(`deleted user id=${user.ID}`)),
+        tap(_ => this.log(`deleted user id=${user.id}`)),
         catchError(this.handleError<User>('deleteUser'))
       );
   }
@@ -111,7 +113,8 @@ export class UserService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<User[]>(`${this.usersUrl}/?username=${usernameTerm}`).pipe(
+    return this.http.get<User[]>(`${this.usersUrl}/?username=${usernameTerm}`,
+    { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
       tap(x => x.length ?
         this.log(`found users matching "${usernameTerm}"`) :
         this.log(`no users matching "${usernameTerm}"`)),

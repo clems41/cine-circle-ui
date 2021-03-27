@@ -37,7 +37,7 @@ export class CircleDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getCircle();
-    this.user = this.loginService.loggedUser;
+    this.user = this.loginService.getLoggedUser();
     this.getMovies()
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term

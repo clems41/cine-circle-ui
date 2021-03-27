@@ -24,9 +24,14 @@ export class UserDetailComponent implements OnInit {
 
 
   getUser(): void {
-    const id = + this.route.snapshot.paramMap.get('id');
-    this.userService.getUser(id)
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id == "me") {
+      this.userService.getActualUser()
       .subscribe(user => this.user = user);
+    } else {
+      this.userService.getUser(+id)
+        .subscribe(user => this.user = user);
+    }
   }
 
   goBack(): void {

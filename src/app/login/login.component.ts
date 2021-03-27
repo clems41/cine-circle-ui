@@ -10,30 +10,18 @@ import { LoginService } from '../login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: User;
-  username: string;
 
-  constructor(private userService: UserService, 
-    private router: Router,
-    private loginService: LoginService
+  constructor(private router: Router,
+    private loginService: LoginService,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
   }
 
   logUser(username: string, password: string) {
-    let that = this;
-    this.userService.searchUsers(username)
-      .subscribe(users => {
-        if (users.length >= 1) {
-          users.forEach(function (user) {
-            if (user.Username == username) {
-              that.loginService.loggedUser = user;
-              that.router.navigate([`/user/${user.ID}`]);
-            }
-          });
-        }
-      });
+    this.loginService.signIn(username, password)
+      .subscribe(res => this.router.navigate([`/user/me`]));
   }
 
 }

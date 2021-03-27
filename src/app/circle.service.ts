@@ -66,10 +66,10 @@ export class CircleService {
   }
 
   updateCircle(circle: Circle): Observable<Circle> {
-    return this.http.put<Circle>(`${this.circlesUrl}/${circle.ID}`, circle,
+    return this.http.put<Circle>(`${this.circlesUrl}/${circle.id}`, circle,
       { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
-        tap((newCircle: Circle) => this.log(`updated circle id=${newCircle.ID}`)),
+        tap((newCircle: Circle) => this.log(`updated circle id=${newCircle.id}`)),
         catchError(this.handleError<any>('updateCircle'))
       );
   }
@@ -78,34 +78,34 @@ export class CircleService {
   addCircle(circle: Circle): Observable<Circle> {
     return this.http.post<Circle>(this.circlesUrl, circle,
       { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap((newCircle: Circle) => this.log(`added circle id=${newCircle.ID}`)),
+        tap((newCircle: Circle) => this.log(`added circle id=${newCircle.id}`)),
         catchError(this.handleError<Circle>('addCircle'))
       );
   }
 
   addUserToCircle(circle: Circle, user: User): Observable<Circle> {
-    return this.http.put<Circle>(`${this.circlesUrl}/${circle.ID}/${user.ID}`, null,
+    return this.http.put<Circle>(`${this.circlesUrl}/${circle.id}/${user.id}`, null,
       { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap((newCircle: Circle) => this.log(`adduserToCircle  id=${newCircle.ID} user ${user.Username}`)),
+        tap((newCircle: Circle) => this.log(`adduserToCircle  id=${newCircle.id} user ${user.username}`)),
         catchError(this.handleError<Circle>('adduserToCircle'))
       );
   }
 
   removeUserFromCircle(circle: Circle, user: User): Observable<Circle> {
-    return this.http.delete<Circle>(`${this.circlesUrl}/${circle.ID}/${user.ID}`,
+    return this.http.delete<Circle>(`${this.circlesUrl}/${circle.id}/${user.id}`,
       { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap((newCircle: Circle) => this.log(`removeUserFromCircle  id=${newCircle.ID} user ${user.Username}`)),
+        tap((newCircle: Circle) => this.log(`removeUserFromCircle  id=${newCircle.id} user ${user.username}`)),
         catchError(this.handleError<Circle>('removeUserFromCircle'))
       );
   }
 
   /** DELETE: delete the hero from the server */
   deleteCircle(circle: Circle): Observable<Circle> {
-    const url = `${this.circlesUrl}/${circle.ID}`;
+    const url = `${this.circlesUrl}/${circle.id}`;
 
     return this.http.delete<Circle>(url,
       { headers: this.loginService.getHttpOptionsForAuthentication() }).pipe(
-        tap(_ => this.log(`deleted circle id=${circle.ID}`)),
+        tap(_ => this.log(`deleted circle id=${circle.id}`)),
         catchError(this.handleError<Circle>('deleteCircle'))
       );
   }

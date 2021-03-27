@@ -14,12 +14,6 @@
         <h1>{{title}}</h1>
     </div>
     <button class="go-back" title="go back" (click)="goBack()">Retour</button>
-    <nav>
-        <a routerLink="/login" routerLinkActive="active-link">Se connecter</a>
-        <a routerLink="/users" routerLinkActive="active-link">Utilisateurs</a>
-        <a routerLink="/movies" routerLinkActive="active-link">Médias</a>
-        <a routerLink="/watchlist" routerLinkActive="active-link">Ma liste</a>
-    </nav>
     <router-outlet></router-outlet>
     <app-messages></app-messages>
 </body>

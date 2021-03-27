@@ -1,9 +1,9 @@
 export interface Rating {
-	UserID: number;
-	MovieID: string;
-	Source: string;
-	Value: number;
-	Comment: string;
-	Username: string;
-	UpdatedAt: Date;
+	userId: number;
+	movieId: string;
+	source: string;
+	value: number;
+	comment: string;
+	username: string;
+	updatedAt: Date;
 }
