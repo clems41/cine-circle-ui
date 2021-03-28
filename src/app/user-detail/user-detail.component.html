@@ -4,6 +4,21 @@
         <a routerLink="/circles" *ngIf="user">Cercles</a>
     </nav>
 
+    <div *ngIf="movies">
+        <div *ngIf="me">
+            <h2>Les films que j'ai noté</h2>
+        </div>
+        <div *ngIf="!me">
+            <h2>Les films notés par {{user.username}}</h2>
+        </div>
+
+        <nav>
+            <a *ngFor="let movie of movies" routerLink="/movie/{{movie.id}}">
+                <img *ngIf="movie.poster" [src]="movie.poster" alt="poster-{{movie.id}}" style="width:150px;height:222px;">
+            </a>
+        </nav>
+    </div>
+
     <h2>Informations de l'utilisateur</h2>
     <div>
         <label for="user-username">Nom d'utilisateur : </label>
@@ -16,6 +31,10 @@
     <div>
         <label for="user-Email">Email : </label>
         <input id="user-Email" [(ngModel)]="user.email" placeholder="Email">
+    </div>
+    <div>
+        <label for="user-password">Mot de passe : </label>
+        <input id="user-password" [(ngModel)]="user.password" placeholder="Mot de passe" type="password">
     </div>
 
     <div><button (click)="save()">save</button></div>

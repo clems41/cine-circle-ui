@@ -12,11 +12,13 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
-    private loginService: LoginService,
-    private userService: UserService
+    private loginService: LoginService
     ) { }
 
   ngOnInit(): void {
+    if(this.loginService.getLoggedUser()) {
+      this.router.navigate([`/user/me`]);
+    }
   }
 
   logUser(username: string, password: string) {

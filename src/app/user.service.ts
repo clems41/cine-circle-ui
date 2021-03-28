@@ -56,7 +56,10 @@ export class UserService {
     return this.http.get<User>(this.usersUrl + `/me`,
     { headers: this.loginService.getHttpOptionsForAuthentication() })
       .pipe(
-        tap(_ => this.log(`fetched user me`)),
+        tap(user => {
+          this.log(`fetched user me`);
+          localStorage.setItem('user', JSON.stringify(user));
+        }),
         catchError(this.handleError<User>('getActualUser', null))
       );
   }

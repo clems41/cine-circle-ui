@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { Movie } from '../movie';
 
 @Component({
   selector: 'app-user-detail',
@@ -11,6 +12,8 @@ import { UserService } from '../user.service';
 })
 export class UserDetailComponent implements OnInit {
   user: User;
+  movies: Movie[];
+  me: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,15 +25,31 @@ export class UserDetailComponent implements OnInit {
     this.getUser();
   }
 
+  getMovies(): void {
+    if (this.user) {
+      this.userService.getMoviesForUser(this.user.id)
+        .subscribe(movies => {
+          this.movies = movies;
+        });
+    }
+  }
 
   getUser(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == "me") {
+      this.me = true;
       this.userService.getActualUser()
-      .subscribe(user => this.user = user);
+      .subscribe(user => {
+        this.user = user;
+        this.getMovies();
+      });
     } else {
+      this.me = false;
       this.userService.getUser(+id)
-        .subscribe(user => this.user = user);
+        .subscribe(user => {
+          this.user = user;
+          this.getMovies();
+        });
     }
   }
 

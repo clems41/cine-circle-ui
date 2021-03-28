@@ -12,10 +12,6 @@ export class LoginService {
 
   private signInUrl = '/api/v1/signin';
   private signUpUrl = '/api/v1/signup';
-  private usersUrl = '/api/v1/users';
-
-  token: string;
-  user: User;
 
   constructor(private messageService: MessageService,
     private http: HttpClient) { }
@@ -42,15 +38,17 @@ export class LoginService {
   }
 
   getLoggedUser(): User {
-    return this.user;
+    var userStr = localStorage.getItem('user');
+    return JSON.parse(userStr);
   }
 
   getHttpOptionsForAuthentication(): HttpHeaders {
-    if (this.token) {
+    const token = localStorage.getItem('token');
+    if (token) {
       this.log(`getHttpOptionsForAuthentication with token`);
       return new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`,
+        'Authorization': `Bearer ${token}`,
       });
     } else {
       this.log(`getHttpOptionsForAuthentication user not logged yet`)
@@ -62,12 +60,12 @@ export class LoginService {
 
   signIn(username: string, password: string): Observable<string> {
     const basicAuth = 'Basic ' + btoa(`${username}:${password}`);
-    this.token = null;
+    localStorage.setItem('token', null);
     return this.http.post<string>(this.signInUrl, null,
       { headers: new HttpHeaders({ 'Authorization': basicAuth }) }).pipe(
         tap((token: string) => {
           this.log(`getting token for user=${username} and token=${token}`);
-          this.token = token;
+          localStorage.setItem('token', token);
         }),
         catchError(this.handleError<string>('signIn'))
       );
