@@ -16,7 +16,8 @@ import { CircleComponent } from './circle/circle.component';
 import { CircleDetailComponent } from './circle-detail/circle-detail.component';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
-import { SignupComponent } from './signup/signup.component'; // <-- NgModel lives here
+import { SignupComponent } from './signup/signup.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SignupComponent } from './signup/signup.component'; // <-- NgModel live
     MovieSearchComponent,
     WatchlistComponent,
     SignupComponent,
+    NavigationBarComponent,
   ],
   imports: [
     BrowserModule,

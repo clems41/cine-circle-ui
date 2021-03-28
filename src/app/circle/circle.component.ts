@@ -38,8 +38,8 @@ export class CircleComponent implements OnInit {
       });
   }
 
-  delete(circle: Circle): void {
+  removeFromCircle(circle: Circle): void {
     this.circles = this.circles.filter(c => c !== circle);
-    this.circleService.deleteCircle(circle).subscribe();
+    this.circleService.removeUserFromCircle(circle, this.user).subscribe();
   }
 }

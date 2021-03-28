@@ -1,9 +1,4 @@
-<div *ngIf="user">
-    <nav>
-        <a routerLink="/user/{{user.id}}">Mon compte</a>
-        <a routerLink="/circles">Cercles</a>
-    </nav>
-</div>
+<app-navigation-bar></app-navigation-bar>
 
 <div *ngIf="movie">
     <h2>{{movie.title}}</h2>

@@ -1,19 +1,20 @@
-<div *ngIf="user">
-    <nav>
-        <a routerLink="/user/{{user.id}}">Mon compte</a>
-    </nav>
+<app-navigation-bar></app-navigation-bar>
+<div *ngIf="circles.length == 0">
+    <h4>Vous n'avez pas encore de cercle.</h4>
 </div>
-
-<h2>Mes cercles</h2>
-<ul class="circles">
-    <li *ngFor="let circle of circles">
-        <a routerLink="/circle/{{circle.id}}">
-            <span class="badge"><img src="../../assets/circle.png" alt="circle-{{circle.id}}" style="width:15px;height:15px;"></span> {{circle.name}}
-        </a>
-        <button class="delete" title="delete circle" (click)="delete(circle)">x</button>
-    </li>
-</ul>
+<div *ngIf="circles.length > 0">
+    <h2>Mes cercles</h2>
+    <ul class="circles">
+        <li *ngFor="let circle of circles">
+            <a routerLink="/circle/{{circle.id}}">
+                <span class="badge"><img src="../../assets/circle.png" alt="circle-{{circle.id}}" style="width:15px;height:15px;"></span> {{circle.name}}
+            </a>
+            <button class="delete" title="delete circle" (click)="removeFromCircle(circle)">Se retirer</button>
+        </li>
+    </ul>
+</div>
 <div>
+    <h2>Créer un nouveau cercle</h2>
     <div>
         <label id="new-circle">Nom du cercle</label>
         <input for="new-circle" #name />
@@ -26,6 +27,6 @@
     <!-- (click) passes input value to add() and then clears the input -->
     <button class="add-button" (click)="add(name.value, description.value); 
     name.value=''; description.value=''">
-      Créer un cercle
+      Créer
     </button>
 </div>

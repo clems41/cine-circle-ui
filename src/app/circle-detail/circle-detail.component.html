@@ -1,10 +1,4 @@
-<div *ngIf="user">
-
-    <nav>
-        <a routerLink="/user/{{user.id}}">Mon compte</a>
-        <a routerLink="/circles">Cercles</a>
-    </nav>
-</div>
+<app-navigation-bar></app-navigation-bar>
 
 <div *ngIf="circle">
 
@@ -41,7 +35,7 @@
         <ul class="search-result">
             <a *ngFor="let user of users$ | async">
                 {{user.username}}
-                <button class="add" title="add user" (click)="add(user)">+</button>
+                <button class="add" title="add user" (click)="add(user); searchBox.value=''">+</button>
                 </a>
         </ul>
     </div>

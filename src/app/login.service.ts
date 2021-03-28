@@ -60,7 +60,7 @@ export class LoginService {
 
   signIn(username: string, password: string): Observable<string> {
     const basicAuth = 'Basic ' + btoa(`${username}:${password}`);
-    localStorage.setItem('token', null);
+    localStorage.removeItem('token');
     return this.http.post<string>(this.signInUrl, null,
       { headers: new HttpHeaders({ 'Authorization': basicAuth }) }).pipe(
         tap((token: string) => {
@@ -69,6 +69,11 @@ export class LoginService {
         }),
         catchError(this.handleError<string>('signIn'))
       );
+  }
+
+  signOut(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   /** POST: add a new user to the server */

@@ -1,12 +1,4 @@
-<div *ngIf="user">
-    <h2>Les films que j'ai noté</h2>
-    <nav>
-        <a *ngFor="let movie of userMovies" routerLink="/movie/{{movie.id}}">
-            <img *ngIf="movie.poster" [src]="movie.poster" alt="poster-{{movie.id}}" style="width:150px;height:222px;">
-        </a>
-    </nav>
-</div>
-
+<app-navigation-bar></app-navigation-bar>
 <h2>Trouver un média</h2>
 <div id="search-component">
     <div>
@@ -21,9 +13,9 @@
     <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
     <ul class="search-result">
-        <li *ngFor="let movie of (movies$ | async)?.Search ">
+        <li *ngFor="let movie of (movies$ | async)?.search ">
             <a routerLink="/movie/{{movie.id}}">
-                <img src="{{movie.poster}}" alt="poster-{{movie.id}}" style="width:100px;height:150px;">{{movie.Title}}
+                <img src="{{movie.poster}}" alt="poster-{{movie.id}}" style="width:100px;height:150px;">{{movie.title}}
             </a>
         </li>
     </ul>
