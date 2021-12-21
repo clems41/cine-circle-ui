@@ -1,48 +1,104 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import {
+  PERFECT_SCROLLBAR_CONFIG,
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule,
+} from 'ngx-perfect-scrollbar';
+
+// Import routing module
 import { AppRoutingModule } from './app-routing.module';
+
+// Import app component
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
-import { FormsModule } from '@angular/forms';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { MessagesComponent } from './messages/messages.component';
-import { UserSearchComponent } from './user-search/user-search.component';
-import { MovieDetailComponent } from './movie-detail/movie-detail.component';
-import { LoginComponent } from './login/login.component';
-import { CircleComponent } from './circle/circle.component';
-import { CircleDetailComponent } from './circle-detail/circle-detail.component';
-import { MovieSearchComponent } from './movie-search/movie-search.component';
-import { WatchlistComponent } from './watchlist/watchlist.component';
-import { SignupComponent } from './signup/signup.component';
-import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'; // <-- NgModel lives here
+
+// Import containers
+import {
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+} from './containers';
+
+import {
+  AvatarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonGroupModule,
+  ButtonModule,
+  CardModule,
+  DropdownModule,
+  FooterModule,
+  FormModule,
+  GridModule,
+  HeaderModule,
+  ListGroupModule,
+  NavModule,
+  ProgressModule,
+  SharedModule,
+  SidebarModule,
+  TabsModule,
+  UtilitiesModule,
+} from '@coreui/angular';
+
+import { IconModule, IconSetService } from '@coreui/icons-angular';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+};
+
+const APP_CONTAINERS = [
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UserComponent,
-    UserDetailComponent,
-    MessagesComponent,
-    UserSearchComponent,
-    MovieDetailComponent,
-    LoginComponent,
-    CircleComponent,
-    CircleDetailComponent,
-    MovieSearchComponent,
-    WatchlistComponent,
-    SignupComponent,
-    NavigationBarComponent,
-  ],
+  declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    AvatarModule,
+    BreadcrumbModule,
+    FooterModule,
+    DropdownModule,
+    GridModule,
+    HeaderModule,
+    SidebarModule,
+    IconModule,
+    PerfectScrollbarModule,
+    NavModule,
+    ButtonModule,
+    FormModule,
+    UtilitiesModule,
+    ButtonGroupModule,
+    ReactiveFormsModule,
+    SidebarModule,
+    SharedModule,
+    TabsModule,
+    ListGroupModule,
+    ProgressModule,
+    BadgeModule,
+    ListGroupModule,
+    CardModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
+    IconSetService,
+    Title
+  ],
   bootstrap: [AppComponent],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class AppModule { }
+export class AppModule {
+}
