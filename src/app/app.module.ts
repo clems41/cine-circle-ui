@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule, HashLocationStrategy, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {BrowserModule, Title} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -11,10 +11,10 @@ import {
 } from 'ngx-perfect-scrollbar';
 
 // Import routing module
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 
 // Import app component
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 
 // Import containers
 import {
@@ -24,6 +24,7 @@ import {
 } from './containers';
 
 import {
+  AlertModule,
   AvatarModule,
   BadgeModule,
   BreadcrumbModule,
@@ -39,12 +40,20 @@ import {
   NavModule,
   ProgressModule,
   SharedModule,
-  SidebarModule,
+  SidebarModule, TableModule,
   TabsModule,
   UtilitiesModule,
 } from '@coreui/angular';
 
-import { IconModule, IconSetService } from '@coreui/icons-angular';
+import {IconModule, IconSetService} from '@coreui/icons-angular';
+import {SignInComponent} from './core/components/sign-in/sign-in.component';
+import {SignUpComponent} from './core/components/sign-up/sign-up.component';
+import {HomeComponent} from './core/components/home/home.component';
+import {DashboardRoutingModule} from './views/dashboard/dashboard-routing.module';
+import {ChartjsModule} from '@coreui/angular-chartjs';
+import {WidgetsModule} from './views/widgets/widgets.module';
+import {environment} from '../environments/environment';
+import {HttpClientModule} from '@angular/common/http';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -57,7 +66,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, SignInComponent, SignUpComponent, HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -85,6 +94,26 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
+    DashboardRoutingModule,
+    CardModule,
+    NavModule,
+    IconModule,
+    TabsModule,
+    CommonModule,
+    GridModule,
+    ProgressModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    FormModule,
+    ButtonModule,
+    ButtonGroupModule,
+    ChartjsModule,
+    AvatarModule,
+    TableModule,
+    WidgetsModule,
+    FormsModule,
+    HttpClientModule,
+    AlertModule,
   ],
   providers: [
     {
@@ -96,7 +125,8 @@ const APP_CONTAINERS = [
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     IconSetService,
-    Title
+    Title,
+    {provide: 'API_URL', useValue: environment.apiUrl}
   ],
   bootstrap: [AppComponent],
 })

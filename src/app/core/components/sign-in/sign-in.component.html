@@ -1,0 +1,69 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm>
+                <h1>Se connecter</h1>
+                <p class="text-medium-emphasis">Connectez-vous à votre compte</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autoComplete="username" cFormControl placeholder="Email ou nom utilisateur"
+                         [(ngModel)]="login" name="login"/>
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl
+                    placeholder="Mot de passe"
+                    type="password"
+                    [(ngModel)]="password"
+                    name="password"
+                  />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="12">
+                    <c-alert [hidden]="!errorMessage" color="danger">{{errorMessage}}</c-alert>
+                  </c-col>
+                </c-row>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary" (click)="signIn()"
+                            [disabled]="!password || !login">
+                      Connexion
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link">
+                      Mot de passe oublié?
+                    </button>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
+            <c-card-body class="text-center">
+              <div>
+                <h2>Inscription</h2>
+                <p>
+                  Inscrivez-vous pour accéder aux recommendations de vos amis.
+                </p>
+                <button [active]="true" cButton class="mt-3" color="primary" routerLink="/sign-up">
+                  Inscription
+                </button>
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
